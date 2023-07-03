@@ -6,7 +6,7 @@ import { useState } from "react";
 import { UserUpdate } from "@/utils/interfaces";
 import { request } from "@/utils/api_resources";
 import { useParams, useRouter } from "next/navigation";
-import { useDispatch } from "react-redux/es/exports";
+import { useDispatch } from "react-redux";
 import { displayToast, setToastData } from "@/redux/features/toastSlice";
 import { ToastMessageProps } from "@/components/toast";
 
