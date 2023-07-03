@@ -1,0 +1,38 @@
+.h-33 {
+    height: 33%;
+    max-height: 33%;
+}
+
+.h-66 {
+    height: 66%;
+    max-height: 66%;
+}
+
+.hf-100 {
+    height: 100px;
+    max-height: 100px
+}
+
+.wf-100 {
+    width: 100px;
+}
+
+.wf-150 {
+    width: 150px;
+}
+
+.wf-200 {
+    width: 200px;
+}
+
+.wf-300 {
+    width: 300px;
+}
+
+.wf-400 {
+    width: 400px;
+}
+
+.wf-500 {
+    width: 500px;
+}

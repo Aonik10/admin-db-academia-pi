@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const { Schema, SchemaTypes, model, models } = mongoose;
+const { Schema, model, models } = mongoose;
 
 const userSchema = new Schema({
     email: {
@@ -21,6 +21,18 @@ const userSchema = new Schema({
         default: "Alumno",
     },
     lastName: {
+        type: String,
+        default: null,
+    },
+    phoneNumber: {
+        type: String,
+        default: null,
+    },
+    id_document: {
+        type: Number,
+        default: null,
+    },
+    address: {
         type: String,
         default: null,
     },

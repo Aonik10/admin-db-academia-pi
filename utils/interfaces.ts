@@ -1,17 +1,18 @@
 export interface UserCreate {
     email: string;
-    password?: string;
-    firstName?: string;
+    firstName: string;
     lastName?: string;
+    password?: string;
+    phoneNumber?: string;
+    id_document?: number;
     image?: string;
+    address?: string;
 }
 
-export interface UserCreated {
+export type UserUpdate = Partial<UserCreate>;
+
+export interface UserCreated extends UserCreate {
     _id: string;
-    email: string;
-    firstName: string;
-    lastName: string | null;
-    image: string;
     reffersCodes: [];
     inscriptions: [];
     __v: number;

@@ -15,9 +15,18 @@ export default async function Users() {
     let users = await getUsers();
 
     return (
-        <div>
-            <CreateMenu />
-            <UsersTable users={users} />
+        <div className="d-flex flex-column h-100">
+            <div className="d-flex justify-content-between w-100 p-4 flex-grow-1">
+                <div className="w-25 h-100">
+                    <div className="me-3 h-100">
+                        <CreateMenu />
+                    </div>
+                </div>
+                <div className="w-75 me-3">
+                    {/* Hay un error en nextJs que hace que pasarle users=users arroje un warning, por ahora lo mantengo asi para evitar el mensaje */}
+                    <UsersTable users={JSON.parse(JSON.stringify(users))} />
+                </div>
+            </div>
         </div>
     );
 }
