@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { connectToDB } from "@/database/database";
 import { UserCreated } from "@/utils/interfaces";
 import User from "@/database/models/user";
-import CreateMenu from "./createMenu";
+import CreateUserForm from "./createUserMenu";
 import UsersTable from "./usersTable";
 
 const getUsers = async (): Promise<UserCreated[]> => {
@@ -19,7 +19,7 @@ export default async function Users() {
             <div className="d-flex justify-content-between w-100 p-4 flex-grow-1">
                 <div className="w-25 h-100">
                     <div className="me-3 h-100">
-                        <CreateMenu />
+                        <CreateUserForm />
                     </div>
                 </div>
                 <div className="w-75 me-3">
