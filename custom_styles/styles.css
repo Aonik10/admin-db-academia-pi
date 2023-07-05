@@ -1,11 +1,21 @@
 .h-33 {
-    height: 33%;
-    max-height: 33%;
+    height: 33.33%;
+    max-height: 33.33%;
 }
 
 .h-66 {
-    height: 66%;
-    max-height: 66%;
+    height: 66.66%;
+    max-height: 66.66%;
+}
+
+.w-33 {
+    width: 33.33%;
+    max-width: 33.33%;
+}
+
+.w-66 {
+    width: 66.66%;
+    max-width: 66.66%;
 }
 
 .hf-100 {
@@ -35,4 +45,21 @@
 
 .wf-500 {
     width: 500px;
+}
+
+.wm-150 {
+    max-width: 150px;
+}
+
+.outline-0 {
+    outline: none
+}
+
+.cursor-pointer {
+    cursor: pointer
+}
+
+.custom-file-input {
+    content: "";
+    color: red
 }

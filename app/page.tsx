@@ -18,7 +18,12 @@ export default function Main() {
                     </button>
                 </div>
                 <div className="mt-1 d-flex justify-content-center">
-                    <button className="btn btn-primary w-100">Courses</button>
+                    <button
+                        className="btn btn-primary w-100"
+                        onClick={() => router.push("/courses")}
+                    >
+                        Courses
+                    </button>
                 </div>
                 <div className="mt-1 d-flex justify-content-center">
                     <button className="btn btn-primary w-100">

@@ -3,7 +3,7 @@
 import { Search } from "@/components/icons";
 import { request } from "@/utils/api_resources";
 import { UserCreated } from "@/utils/interfaces";
-import { KeyboardEventHandler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface UsersTableProps {
     users: UserCreated[];
@@ -38,7 +38,7 @@ function TableData({ id, content }: TableDataProps) {
 function TableRow({ user }: TableRowProps) {
     const id = user._id.toString();
     return (
-        <tr key={id}>
+        <tr>
             <TableData id={user._id} content={user.email} />
             <TableData id={user._id} content={user.firstName} />
             <TableData id={user._id} content={user.lastName} />
@@ -85,10 +85,9 @@ function Selector({ onChange }: InputComponentProps<HTMLSelectElement>) {
                 className="form-select w-50 "
                 aria-label="Default select example"
                 onChange={onChange}
+                defaultValue={15}
             >
-                <option value={15} selected>
-                    15
-                </option>
+                <option value={15}>15</option>
                 <option value={25}>25</option>
                 <option value={50}>50</option>
             </select>
@@ -150,8 +149,8 @@ export default function UsersTable({ users }: UsersTableProps) {
                         <tbody>
                             {usersRendered
                                 .slice(page * pageSize, (page + 1) * pageSize)
-                                .map((u) => (
-                                    <TableRow user={u} />
+                                .map((u, index) => (
+                                    <TableRow user={u} key={index} />
                                 ))}
                         </tbody>
                     </table>

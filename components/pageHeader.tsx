@@ -6,7 +6,11 @@ import { RootState } from "@/redux/store";
 import ToastMessage from "@/components/toast";
 import Collapse from "react-bootstrap/Collapse";
 
-export default function PageHeader() {
+interface PageHeaderProps {
+    title: string;
+}
+
+export default function PageHeader({ title }: PageHeaderProps) {
     const { display, data } = useSelector((state: RootState) => state.toast);
 
     return (
@@ -20,7 +24,7 @@ export default function PageHeader() {
                     />
                 </div>
             </Collapse>
-            <h1 className="display-2 fw-bold ">Users Menu</h1>
+            <h1 className="display-2 fw-bold ">{title}</h1>
         </div>
     );
 }

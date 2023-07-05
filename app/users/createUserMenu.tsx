@@ -12,7 +12,7 @@ const createUser = async (body: UserCreate) => {
 };
 
 export default function CreateUserForm() {
-    const data = [
+    const textInputs = [
         {
             content: "Email",
             name: "email",
@@ -40,5 +40,11 @@ export default function CreateUserForm() {
             name: "address",
         },
     ];
-    return <CreateForm subject="User" data={data} onSubmit={createUser} />;
+    return (
+        <CreateForm
+            subject="user"
+            textInputs={textInputs}
+            onSubmit={createUser}
+        />
+    );
 }

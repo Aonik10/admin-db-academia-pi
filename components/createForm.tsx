@@ -7,15 +7,14 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { displayToast, setToastData } from "@/redux/features/toastSlice";
 import { ToastMessageProps } from "@/components/toast";
-import { NextResponse } from "next/server";
 
 interface CreateFormProps {
     subject: string;
-    data: CreateInputProps[];
+    textInputs: CreateTextInputProps[];
     onSubmit: (body: any) => Promise<Response>;
 }
 
-interface CreateInputProps {
+interface CreateTextInputProps {
     content: string;
     name: string;
     required?: boolean;
@@ -27,7 +26,7 @@ function CreateTextInput({
     name,
     required,
     onChange,
-}: CreateInputProps) {
+}: CreateTextInputProps) {
     return (
         <div className="m-1">
             <div className="input-group input-group-sm ">
@@ -55,7 +54,7 @@ function CreateTextInput({
 
 export default function CreateForm({
     subject,
-    data,
+    textInputs,
     onSubmit,
 }: CreateFormProps) {
     const router = useRouter();
@@ -101,8 +100,9 @@ export default function CreateForm({
                 <div className="d-flex justify-content-center align-items-center bg-secondary text-light rounded-top hf-100">
                     <h3 className="m-0">Create Menu</h3>
                 </div>
-                {data.map((input) => (
+                {textInputs.map((input, index) => (
                     <CreateTextInput
+                        key={index}
                         content={input.content}
                         name={input.name}
                         required={input.required}

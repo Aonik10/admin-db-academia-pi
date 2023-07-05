@@ -17,3 +17,27 @@ export interface UserCreated extends UserCreate {
     inscriptions: [];
     __v: number;
 }
+
+export interface CourseCreate {
+    title: string;
+    description: string;
+    livePrice?: number;
+    onDemandPrice: number;
+    image: string;
+    tags?: string[];
+    onSale?: number;
+    isLive?: boolean;
+    isOnDemand?: boolean;
+    isActive?: boolean;
+    duration?: number;
+    professor?: string;
+    liveDate?: string;
+}
+
+export type CourseUpdate = Partial<CourseCreate>;
+
+export interface CourseCreated {
+    _id: string;
+    inscriptions: [];
+    __v: number;
+}
