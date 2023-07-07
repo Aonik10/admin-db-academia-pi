@@ -3,23 +3,25 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "@/custom_styles/styles.css";
 
-interface TextareaInputProps<T> {
+interface TextareaInputProps {
     name: string;
     placeholder?: string;
     required?: boolean;
-    state: T;
-    setState: (arg: T) => void;
+    value: string | number;
+    onChange: (newValue: string) => void;
 }
 
-export function TextareaInput<T>({
+export function TextareaInput({
     name,
     placeholder,
     required,
-    state,
-    setState,
-}: TextareaInputProps<T>) {
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setState({ ...state, [e.target.name]: e.target.value });
+    value,
+    onChange,
+}: TextareaInputProps) {
+    const handleChange = ({
+        target,
+    }: React.ChangeEvent<HTMLTextAreaElement>) => {
+        onChange(target.value);
     };
 
     return (
@@ -28,6 +30,7 @@ export function TextareaInput<T>({
                 className="form-control"
                 rows={5}
                 name={name}
+                value={value}
                 placeholder={placeholder}
                 onChange={handleChange}
                 required={required}

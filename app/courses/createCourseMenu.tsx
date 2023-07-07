@@ -9,12 +9,22 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { displayToast, setToastData } from "@/redux/features/toastSlice";
 import { ToastMessageProps } from "@/components/toast";
-import { TextInput } from "@/components/formInputs/textInput";
-import { TagsInput } from "@/components/formInputs/tagsInput";
-import { CheckboxInput } from "@/components/formInputs/checkboxInput";
-import { DateInput } from "@/components/formInputs/dateInput";
-import FileInput from "@/components/formInputs/fileInput";
-import { TextareaInput } from "@/components/formInputs/textareaInput";
+
+import {
+    TextInput,
+    TagsInput,
+    CheckboxInput,
+    DateInput,
+    FileInput,
+    TextareaInput,
+} from "@/components/formInputs/formInputs";
+
+// import { TextInput } from "@/components/formInputs/textInput";
+// import { TagsInput } from "@/components/formInputs/tagsInput";
+// import { CheckboxInput } from "@/components/formInputs/checkboxInput";
+// import { DateInput } from "@/components/formInputs/dateInput";
+// import { FileInput } from "@/components/formInputs/fileInput";
+// import { TextareaInput } from "@/components/formInputs/textareaInput";
 
 const createCourse = async (body: CourseCreate) => {
     const response = await request("/courses", "POST", body);
@@ -32,6 +42,9 @@ export default function CreateCourse() {
         image: "",
         liveDate: "",
         tags: [],
+        isLive: false,
+        isOnDemand: false,
+        isActive: false,
     });
 
     const [loading, setLoading] = useState(false);
@@ -109,15 +122,18 @@ export default function CreateCourse() {
                             key={subject[1]}
                             content={subject[0]}
                             name={subject[1]}
-                            state={newCourse}
-                            setState={setNewCourse}
+                            onChange={(value) =>
+                                setNewCourse({
+                                    ...newCourse,
+                                    [subject[1]]: value,
+                                })
+                            }
                         />
                     ))}
                 </div>
                 <TagsInput
                     name="tags"
-                    state={newCourse}
-                    setState={setNewCourse}
+                    onChange={(tags) => setNewCourse({ ...newCourse, tags })}
                 />
                 <DateInput
                     content="Live Date"
@@ -188,7 +204,6 @@ export default function CreateCourse() {
                 <FileInput
                     content="Upload Image"
                     name="image"
-                    value={newCourse.image ?? ""}
                     onChange={(value) =>
                         setNewCourse({ ...newCourse, image: value })
                     }
@@ -196,8 +211,10 @@ export default function CreateCourse() {
                 <TextareaInput
                     name="description"
                     placeholder="Description of the course"
-                    state={newCourse}
-                    setState={setNewCourse}
+                    value={newCourse.description ?? ""}
+                    onChange={(value) =>
+                        setNewCourse({ ...newCourse, description: value })
+                    }
                 />
 
                 <button

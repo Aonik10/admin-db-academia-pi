@@ -3,22 +3,15 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "@/custom_styles/styles.css";
 
-interface CheckboxInputProps<T> {
+interface CheckboxInputProps {
     content: string;
     name: string;
-    state: T;
-    setState: (arg: T) => void;
+    onChange: (newValue: boolean) => void;
 }
 
-export function CheckboxInput<T>({
-    content,
-    name,
-    state,
-    setState,
-}: CheckboxInputProps<T>) {
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setState({ ...state, [e.target.name]: e.target.checked });
-        console.log({ [e.target.name]: e.target.checked });
+export function CheckboxInput({ content, name, onChange }: CheckboxInputProps) {
+    const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+        onChange(target.checked);
     };
 
     return (

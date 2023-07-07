@@ -10,16 +10,10 @@ import { formDataRequest, request } from "@/utils/api_resources";
 interface FileInputProps {
     content: string;
     name: string;
-    value: string;
     onChange: (newValue: string) => void;
 }
 
-export default function FileInput({
-    content,
-    name,
-    value,
-    onChange,
-}: FileInputProps) {
+export function FileInput({ content, name, onChange }: FileInputProps) {
     const [fileName, setFileName] = useState("");
     const [image, setImage] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);

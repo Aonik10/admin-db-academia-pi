@@ -19,8 +19,6 @@ export function DateInput({
     onChange,
 }: DateInputProps) {
     const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-        // const [year, month, day] = target.value.split("-");
-        // onChange([day, month, year].join("-"));
         onChange(target.value);
     };
 
@@ -34,7 +32,6 @@ export function DateInput({
             </div>
             <input
                 type="date"
-                pattern="\d{1,2}-\d{1,2}-\d{4}"
                 className="form-control"
                 value={value}
                 name={name}

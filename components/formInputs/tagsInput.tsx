@@ -5,13 +5,12 @@ import "@/custom_styles/styles.css";
 import { XCircle } from "@/components/icons";
 import { useEffect, useState } from "react";
 
-interface TagInputProps<T> {
+interface TagInputProps {
     name: string;
-    state: T;
-    setState: (arg: T) => void;
+    onChange: (newValue: string[]) => void;
 }
 
-export function TagsInput<T>({ name, state, setState }: TagInputProps<T>) {
+export function TagsInput({ name, onChange }: TagInputProps) {
     const [tags, setTags] = useState<string[]>([]);
 
     const addTags = (e: any) => {
@@ -26,7 +25,7 @@ export function TagsInput<T>({ name, state, setState }: TagInputProps<T>) {
     };
 
     useEffect(() => {
-        setState({ ...state, tags: tags });
+        onChange(tags);
     }, [tags]);
 
     return (
