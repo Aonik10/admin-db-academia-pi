@@ -101,9 +101,9 @@ export default function CreateCourse() {
                 />
                 <div className="d-flex justify-content-between w-100">
                     {[
+                        ["Active", "isActive"],
                         ["Live", "isLive"],
                         ["On demand", "isOnDemand"],
-                        ["Active", "isActive"],
                     ].map((subject) => (
                         <CheckboxInput
                             key={subject[1]}
