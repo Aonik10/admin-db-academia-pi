@@ -11,3 +11,19 @@ export async function request(path: string, method: string, body: any = null) {
 
     return response;
 }
+
+interface FormDataRequestResponse {
+    message: string;
+    url: string;
+}
+
+export async function formDataRequest(
+    path: string,
+    body: FormData
+): Promise<FormDataRequestResponse> {
+    const response = await fetch(SERVER_URL + path, {
+        method: "POST",
+        body,
+    });
+    return response.json();
+}

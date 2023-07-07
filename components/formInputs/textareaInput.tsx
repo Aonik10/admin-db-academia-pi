@@ -4,16 +4,16 @@ import "bootstrap/dist/css/bootstrap.css";
 import "@/custom_styles/styles.css";
 
 interface TextareaInputProps<T> {
-    content: string;
     name: string;
+    placeholder?: string;
     required?: boolean;
     state: T;
     setState: (arg: T) => void;
 }
 
 export function TextareaInput<T>({
-    content,
     name,
+    placeholder,
     required,
     state,
     setState,
@@ -23,19 +23,15 @@ export function TextareaInput<T>({
     };
 
     return (
-        <div className="input-group input-group-sm m-1">
-            <div className="input-group-prepend wf-150">
-                <span className="input-group-text rounded-0">
-                    {content}
-                    {required ? <div className="text-danger ms-1">*</div> : ""}
-                </span>
-            </div>
+        <div className="form-group">
             <textarea
                 className="form-control"
+                rows={5}
                 name={name}
+                placeholder={placeholder}
                 onChange={handleChange}
                 required={required}
-            />
+            ></textarea>
         </div>
     );
 }

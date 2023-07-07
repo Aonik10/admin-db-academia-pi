@@ -3,23 +3,31 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "@/custom_styles/styles.css";
 
-interface TextInputProps<T> {
+interface TextInputProps {
+    type: "text" | "number";
     content: string;
     name: string;
+    placeholder?: string;
+    decimals?: boolean;
     required?: boolean;
-    state: T;
-    setState: (arg: T) => void;
+    max?: number;
+    value: string | number;
+    onChange: (newValue: string) => void;
 }
 
-export function TextInput<T>({
+export function TextInput({
+    type,
     content,
     name,
+    placeholder,
+    decimals,
     required,
-    state,
-    setState,
-}: TextInputProps<T>) {
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setState({ ...state, [e.target.name]: e.target.value });
+    max,
+    value,
+    onChange,
+}: TextInputProps) {
+    const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+        onChange(target.value);
     };
 
     return (
@@ -31,9 +39,14 @@ export function TextInput<T>({
                 </span>
             </div>
             <input
-                type="text"
+                type={type}
                 className="form-control"
                 name={name}
+                placeholder={placeholder}
+                step={decimals ? ".01" : "any"}
+                min={0}
+                max={max}
+                value={value}
                 onChange={handleChange}
                 required={required}
             />

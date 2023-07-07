@@ -24,11 +24,11 @@ export function CheckboxInput<T>({
     return (
         <div className="input-group">
             <div className="input-group-prepend w-100">
-                <div className="input-group-text">
+                <div className="input-group-text rounded-0">
                     <input
                         type="checkbox"
                         name={name}
-                        className="me-2 pe-auto"
+                        className="me-2 pe-auto cursor-pointer"
                         onChange={handleChange}
                     />
                     {content}

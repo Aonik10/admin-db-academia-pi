@@ -3,24 +3,25 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "@/custom_styles/styles.css";
 
-interface DateInputProps<T> {
+interface DateInputProps {
     content: string;
     name: string;
     required?: boolean;
-    state: T;
-    setState: (arg: T) => void;
+    value: string | number;
+    onChange: (newValue: string) => void;
 }
 
-export function DateInput<T>({
+export function DateInput({
     content,
     name,
     required,
-    state,
-    setState,
-}: DateInputProps<T>) {
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const [year, month, day] = e.target.value.split("-");
-        setState({ ...state, [e.target.name]: [day, month, year].join("-") });
+    value,
+    onChange,
+}: DateInputProps) {
+    const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+        // const [year, month, day] = target.value.split("-");
+        // onChange([day, month, year].join("-"));
+        onChange(target.value);
     };
 
     return (
@@ -33,7 +34,9 @@ export function DateInput<T>({
             </div>
             <input
                 type="date"
+                pattern="\d{1,2}-\d{1,2}-\d{4}"
                 className="form-control"
+                value={value}
                 name={name}
                 onChange={handleChange}
                 required={required}

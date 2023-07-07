@@ -14,6 +14,7 @@ import { TagsInput } from "@/components/formInputs/tagsInput";
 import { CheckboxInput } from "@/components/formInputs/checkboxInput";
 import { DateInput } from "@/components/formInputs/dateInput";
 import FileInput from "@/components/formInputs/fileInput";
+import { TextareaInput } from "@/components/formInputs/textareaInput";
 
 const createCourse = async (body: CourseCreate) => {
     const response = await request("/courses", "POST", body);
@@ -24,16 +25,16 @@ export default function CreateCourse() {
     const router = useRouter();
     const dispatch = useDispatch();
 
-    const [newCourse, setNewCourse] = useState({
+    const [newCourse, setNewCourse] = useState<CourseCreate>({
         title: "",
         description: "",
         onDemandPrice: 0,
         image: "",
         liveDate: "",
+        tags: [],
     });
 
     const [loading, setLoading] = useState(false);
-    const [tags, setTags] = useState<string[]>([]);
 
     const triggerToast = (toastData: ToastMessageProps) => {
         dispatch(setToastData(toastData));
@@ -77,11 +78,26 @@ export default function CreateCourse() {
                 </div>
 
                 <TextInput
+                    type="text"
                     content="Title"
                     name="title"
+                    placeholder="Title of the course"
                     required={true}
-                    state={newCourse}
-                    setState={setNewCourse}
+                    value={newCourse.title ?? ""}
+                    onChange={(value) =>
+                        setNewCourse({ ...newCourse, title: value })
+                    }
+                />
+                <TextInput
+                    type="text"
+                    content="Professor"
+                    name="professor"
+                    placeholder="Full name of the teacher"
+                    required={true}
+                    value={newCourse.professor ?? ""}
+                    onChange={(value) =>
+                        setNewCourse({ ...newCourse, professor: value })
+                    }
                 />
                 <div className="d-flex justify-content-between w-100">
                     {[
@@ -98,14 +114,91 @@ export default function CreateCourse() {
                         />
                     ))}
                 </div>
-                <TagsInput tags={tags} setTags={setTags} />
-                <DateInput
-                    content="Live Date"
-                    name="liveDate"
+                <TagsInput
+                    name="tags"
                     state={newCourse}
                     setState={setNewCourse}
                 />
-                <FileInput content="Upload Image" />
+                <DateInput
+                    content="Live Date"
+                    name="liveDate"
+                    value={newCourse.liveDate ?? ""}
+                    onChange={(value) =>
+                        setNewCourse({ ...newCourse, liveDate: value })
+                    }
+                />
+                <div className="d-flex">
+                    <TextInput
+                        type="number"
+                        content="Live"
+                        name="livePrice"
+                        placeholder="Insert price"
+                        value={newCourse.livePrice ?? 0}
+                        onChange={(value) =>
+                            setNewCourse({
+                                ...newCourse,
+                                livePrice: Number(value),
+                            })
+                        }
+                    />
+                    <TextInput
+                        type="number"
+                        content="On demand"
+                        name="onDemandPrice"
+                        placeholder="Insert price"
+                        value={newCourse.onDemandPrice.toString() ?? 0}
+                        onChange={(value) =>
+                            setNewCourse({
+                                ...newCourse,
+                                onDemandPrice: Number(value),
+                            })
+                        }
+                    />
+                </div>
+                <div className="d-flex">
+                    <TextInput
+                        type="number"
+                        content="Sale %"
+                        name="onSale"
+                        placeholder="0,05 = 5% discount"
+                        decimals={true}
+                        max={1}
+                        value={newCourse.onSale ?? 0}
+                        onChange={(value) =>
+                            setNewCourse({
+                                ...newCourse,
+                                onSale: Number(value),
+                            })
+                        }
+                    />
+                    <TextInput
+                        type="number"
+                        content="Duration"
+                        name="duration"
+                        placeholder="Number of classes"
+                        value={newCourse.duration ?? "0"}
+                        onChange={(value) =>
+                            setNewCourse({
+                                ...newCourse,
+                                duration: Number(value),
+                            })
+                        }
+                    />
+                </div>
+                <FileInput
+                    content="Upload Image"
+                    name="image"
+                    value={newCourse.image ?? ""}
+                    onChange={(value) =>
+                        setNewCourse({ ...newCourse, image: value })
+                    }
+                />
+                <TextareaInput
+                    name="description"
+                    placeholder="Description of the course"
+                    state={newCourse}
+                    setState={setNewCourse}
+                />
 
                 <button
                     className="btn btn-secondary w-100"
