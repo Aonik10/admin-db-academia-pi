@@ -36,7 +36,7 @@ export interface CourseCreate {
 
 export type CourseUpdate = Partial<CourseCreate>;
 
-export interface CourseCreated {
+export interface CourseCreated extends CourseCreate {
     _id: string;
     inscriptions: [];
     __v: number;

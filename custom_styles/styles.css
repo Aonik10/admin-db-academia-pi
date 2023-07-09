@@ -63,3 +63,17 @@
     content: "";
     color: red
 }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 5px;
+    row-gap: 5px;
+	grid-template-rows: auto;
+}
+
+@media screen and (max-width: 1350px) {
+	.grid-container {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}

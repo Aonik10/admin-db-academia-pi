@@ -2,13 +2,14 @@
 
 import "bootstrap/dist/css/bootstrap.css";
 import "@/custom_styles/styles.css";
-import { request } from "@/utils/api_resources";
 import { useState } from "react";
 import { CourseCreate } from "@/utils/interfaces";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
+
 import { displayToast, setToastData } from "@/redux/features/toastSlice";
 import { ToastMessageProps } from "@/components/toast";
+import { request } from "@/utils/api_resources";
 
 import {
     TextInput,
@@ -55,11 +56,9 @@ export default function CreateCourse() {
         setTimeout(() => dispatch(displayToast(false)), 3000);
     };
 
-    const handleCreate = async (
-        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) => {
+    const handleCreate = async () => {
         try {
-            e.preventDefault();
+            console.log(newCourse);
             setLoading(true);
             const response = await createCourse(newCourse);
             if (response.status == 200) {
@@ -78,14 +77,14 @@ export default function CreateCourse() {
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
+        console.log(e);
+        handleCreate();
+        return false;
     };
 
     return (
-        <div className="rounded shadow ">
-            <form
-                className="d-flex flex-column justify-content-between h-100 p-1"
-                onSubmit={handleSubmit}
-            >
+        <div className="rounded shadow" style={{ minWidth: "430px" }}>
+            <form className="d-flex flex-column justify-content-between h-100 p-1">
                 <div className="d-flex justify-content-center align-items-center bg-secondary text-light rounded-top hf-100">
                     <h3 className="m-0">Create Menu</h3>
                 </div>
@@ -219,10 +218,9 @@ export default function CreateCourse() {
 
                 <button
                     className="btn btn-secondary w-100"
-                    type="submit"
-                    name="create-user-btn"
-                    //onClick={handleCreate}
-                    onClick={() => console.log(newCourse)}
+                    type="button"
+                    name="create-course-btn"
+                    onClick={handleSubmit}
                 >
                     {loading ? (
                         <div>

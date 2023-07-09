@@ -3,6 +3,7 @@ import { connectToDB } from "@/database/database";
 import { CourseCreated } from "@/utils/interfaces";
 import CreateCourseForm from "./createCourseMenu";
 import Course from "@/database/models/course";
+import CoursesGrid from "./coursesGrid";
 
 const getCourses = async (): Promise<CourseCreated[]> => {
     connectToDB();
@@ -10,8 +11,8 @@ const getCourses = async (): Promise<CourseCreated[]> => {
     return course;
 };
 
-export default async function Users() {
-    let users = await getCourses();
+export default async function Courses() {
+    let courses = await getCourses();
 
     return (
         <div className="d-flex flex-column h-100">
@@ -21,7 +22,9 @@ export default async function Users() {
                         <CreateCourseForm />
                     </div>
                 </div>
-                <div className="w-75 me-3">Contenido aca</div>
+                <div className="w-75 me-3">
+                    <CoursesGrid courses={courses} />
+                </div>
             </div>
         </div>
     );

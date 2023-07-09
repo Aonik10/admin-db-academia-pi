@@ -1,4 +1,4 @@
-const SERVER_URL = "http://localhost:3000/api";
+export const SERVER_URL = "http://localhost:3000/api";
 
 export async function request(path: string, method: string, body: any = null) {
     const response = await fetch(SERVER_URL + path, {
