@@ -4,7 +4,7 @@ export interface UserCreate {
     lastName?: string;
     password?: string;
     phoneNumber?: string;
-    id_document?: number;
+    id_document?: string;
     image?: string;
     address?: string;
 }

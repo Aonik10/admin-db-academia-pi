@@ -1,3 +1,6 @@
+import { HomeDoor, Journals, People } from "@/components/icons";
+import PageHeader from "@/components/pageHeader";
+import SideBar from "@/components/sideBar";
 import { ReduxProvider } from "@/redux/ReduxProvider";
 import { Inter } from "next/font/google";
 
@@ -13,10 +16,36 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
+    const navs = [
+        {
+            title: "Home",
+            url: "/",
+            icon: <HomeDoor width="20" height="20" />,
+        },
+        {
+            title: "Users",
+            url: "/users",
+            icon: <People width="20" height="20" />,
+        },
+        {
+            title: "Courses",
+            url: "/courses",
+            icon: <Journals width="20" height="20" />,
+        },
+    ];
+
     return (
         <html lang="en">
             <ReduxProvider>
-                <body className={inter.className}>{children}</body>
+                <body className={inter.className}>
+                    <div className="d-flex">
+                        <SideBar navs={navs} />
+                        <div className="d-flex flex-column flex-grow-1 p-3">
+                            <PageHeader title="Courses Menu" />
+                            <div className="flex-grow-1">{children}</div>
+                        </div>
+                    </div>
+                </body>
             </ReduxProvider>
         </html>
     );

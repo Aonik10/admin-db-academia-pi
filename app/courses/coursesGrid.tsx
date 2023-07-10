@@ -12,18 +12,25 @@ interface CourseCardProps {
 }
 
 function CourseCard({ course }: CourseCardProps) {
-    //style={{ width: "18rem" }}
     return (
         <div className="card shadow" style={{ minWidth: "18rem" }}>
-            <img
-                className="card-img-top"
-                src={`${SERVER_URL}/images?imageName=${course.image}`}
-                alt="Card image cap"
-            />
+            <div
+                className="rounded-top-1"
+                style={{
+                    backgroundImage: `url(${SERVER_URL}/images?imageName=${course.image})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    width: "100%",
+                    height: "180px",
+                }}
+            ></div>
             <div className="card-body">
                 <h5 className="card-title">{course.title}</h5>
-                <p className="card-text">{course.description}</p>
-                <a href="#" className="btn btn-primary">
+                <p className="card-text text-truncate">{course.description}</p>
+                <a
+                    href={`/courses/${course._id}`}
+                    className="btn btn-secondary"
+                >
                     See details
                 </a>
             </div>

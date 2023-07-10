@@ -14,7 +14,7 @@ export default function PageHeader({ title }: PageHeaderProps) {
     const { display, data } = useSelector((state: RootState) => state.toast);
 
     return (
-        <div className="p-4 text-center bg-secondary text-light ">
+        <div className="d-flex justify-content-between align-items-center p-1 text-primary">
             <Collapse in={display}>
                 <div className="position-absolute top-0 end-0 m-3 z-3">
                     <ToastMessage
@@ -24,7 +24,8 @@ export default function PageHeader({ title }: PageHeaderProps) {
                     />
                 </div>
             </Collapse>
-            <h1 className="display-2 fw-bold ">{title}</h1>
+            <div></div>
+            <div>logout</div>
         </div>
     );
 }

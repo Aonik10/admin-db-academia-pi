@@ -242,7 +242,7 @@ export function TagsInput({ name, onChange }: BaseInputProps<string[]>) {
 
     return (
         <div className="d-flex justify-content-center align-items-center w-100 ">
-            <div className="d-flex border border-1 flex-grow-1">
+            <div className="d-flex border border-1 flex-grow-1 ">
                 <ul className="m-0 ps-0">
                     {tags.map((tag, index) => (
                         <li className="badge bg-secondary p-2 m-1" key={index}>
@@ -258,7 +258,7 @@ export function TagsInput({ name, onChange }: BaseInputProps<string[]>) {
                     type="text"
                     name={name}
                     placeholder="Add tags"
-                    className="border-0 outline-0 p-2"
+                    className="border-0 outline-0 p-2 flex-grow-1"
                     onKeyDown={addTags}
                 />
             </div>
