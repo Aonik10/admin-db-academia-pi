@@ -4,25 +4,51 @@ import "bootstrap/dist/css/bootstrap.css";
 import "@/custom_styles/styles.css";
 import { Trash, XCircle } from "@/components/icons";
 import { request } from "@/utils/api_resources";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { ToastMessageProps } from "@/components/toast";
 import { displayToast, setToastData } from "@/redux/features/toastSlice";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
+import { UserCreated } from "@/utils/interfaces";
 
 interface UserCardProps {
+    isActive: boolean;
     image?: string;
     fullName: string;
     address?: string;
 }
 
-async function deleteUser(id: string) {
-    const response = await request("/users?id=" + id, "DELETE");
-    return response;
+interface UserDeletedMessage {
+    message: string;
+    user: UserCreated;
 }
 
-export default function UserCard({ image, fullName, address }: UserCardProps) {
+async function deleteUser(id: string): Promise<UserDeletedMessage> {
+    const response = await request("/users?id=" + id, "DELETE");
+    return response.json();
+}
+
+async function changeUserState(id: string, status: boolean) {
+    const response = await request("/users?id=" + id, "PUT", {
+        isActive: status,
+    });
+    return response.json();
+}
+
+export default function UserCard({
+    image,
+    fullName,
+    address,
+    isActive,
+}: UserCardProps) {
     const { id } = useParams();
     const dispatch = useDispatch();
+    const router = useRouter();
+
+    const [status, setStatus] = useState(isActive);
+    const [show, setShow] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const triggerToast = (toastData: ToastMessageProps) => {
         dispatch(setToastData(toastData));
@@ -30,17 +56,73 @@ export default function UserCard({ image, fullName, address }: UserCardProps) {
         setTimeout(() => dispatch(displayToast(false)), 3000);
     };
 
-    const handleDelete = () => {
-        deleteUser(id);
-        const toastData = {
-            title: "User deleted",
-            message: `User with id ${id} has been deleted`,
-        };
-        triggerToast(toastData);
+    const handleDelete = async () => {
+        setLoading(true);
+        try {
+            const userDeleted = await deleteUser(id);
+            setShow(false);
+            const toastData = {
+                title: userDeleted.message,
+                message: `User ${userDeleted.user.email} has been deleted`,
+            };
+            triggerToast(toastData);
+        } catch (error: any) {
+            console.log(error);
+        }
+        setLoading(false);
+        router.push("/users");
+    };
+
+    const handleStatus = async () => {
+        try {
+            const userUpdated = await changeUserState(id, !status);
+            setStatus(userUpdated.user.isActive);
+            console.log(userUpdated);
+            const toastData = {
+                title: "User status updated",
+                message: `User ${
+                    status ? "has been blocked" : "is now active"
+                }`,
+            };
+            triggerToast(toastData);
+        } catch (error: any) {
+            console.log(error);
+        }
     };
 
     return (
         <div className="d-flex flex-column justify-content-center align-items-center w-25 h-33 m-3 p-3 rounded shadow">
+            <Modal show={show} onHide={() => setShow(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Delete Warning</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    This user will be deleted permanently, you cannot undo this
+                    action. Are you sure you want to continue?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShow(false)}>
+                        Close
+                    </Button>
+                    <Button
+                        variant="danger"
+                        disabled={loading}
+                        className="wf-150"
+                        onClick={handleDelete}
+                    >
+                        {loading ? (
+                            <div>
+                                <div className="spinner-border spinner-border-sm text-light me-2"></div>
+                                <span className="sr-only text-light">
+                                    Deleting...
+                                </span>
+                            </div>
+                        ) : (
+                            "Delete Anyway"
+                        )}
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             <img
                 className="rounded-circle"
                 src={image}
@@ -50,11 +132,19 @@ export default function UserCard({ image, fullName, address }: UserCardProps) {
             <h3 className="">{fullName}</h3>
             <h4 className="">{address}</h4>
             <div className="d-flex">
-                <button className="btn btn-secondary me-1">
+                <button
+                    className="btn btn-secondary wf-150 me-1"
+                    onClick={handleStatus}
+                >
                     <XCircle />
-                    <span className="ms-2">Block user</span>
+                    <span className="ms-2">
+                        {status ? "Block user" : "Unblock"}
+                    </span>
                 </button>
-                <button className="btn btn-danger" onClick={handleDelete}>
+                <button
+                    className="btn btn-danger wf-150"
+                    onClick={() => setShow(true)}
+                >
                     <Trash />
                     <span className="ms-2">Delete user</span>
                 </button>

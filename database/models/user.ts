@@ -40,6 +40,10 @@ const userSchema = new Schema({
         type: String,
         default: "https://iili.io/H4uyVZF.webp",
     },
+    isActive: {
+        type: Boolean,
+        default: true,
+    },
     reffersCodes: {
         type: [String],
         default: null,

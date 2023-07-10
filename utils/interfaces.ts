@@ -7,6 +7,7 @@ export interface UserCreate {
     id_document?: string;
     image?: string;
     address?: string;
+    isActive?: boolean;
 }
 
 export type UserUpdate = Partial<UserCreate>;

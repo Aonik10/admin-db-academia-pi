@@ -43,7 +43,7 @@ export async function PUT(req: NextRequest) {
         connectToDB();
         const body = (await req.json()) as UserUpdate;
         const id = req.nextUrl.searchParams.get("id");
-        console.log(id);
+        console.log(body);
 
         // find user
         const userFound = await User.findByIdAndUpdate(id, body, { new: true });

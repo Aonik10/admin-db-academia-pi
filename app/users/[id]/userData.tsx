@@ -36,19 +36,16 @@ function UserDataRow({
         <div className="m-2">
             <div className="d-flex p-3">
                 <h5 className="w-25 mb-0">{title}</h5>
-                {editing ? (
-                    <input
-                        type="text"
-                        className="w-75 text-secondary m-0 p-0 h-100 h5 fs-4 border border-4 bg-light"
-                        name={name}
-                        defaultValue={content}
-                        onChange={onChange}
-                    />
-                ) : (
-                    <h5 className="w-75 p-1 text-secondary p-0 m-0">
-                        {content}
-                    </h5>
-                )}
+                <input
+                    type="text"
+                    className={`w-75 m-0 p-0 h-100 fs-4 border-0 bg-light ${
+                        editing ? "text-dark" : "text-secondary"
+                    }`}
+                    disabled={!editing}
+                    name={name}
+                    defaultValue={content}
+                    onChange={onChange}
+                />
             </div>
             {breakLine && <div className="border-bottom me-4 ms-4"></div>}
         </div>
@@ -68,6 +65,8 @@ export default function UserData({
     const [editable, setEditable] = useState(false);
     const [data, setData] = useState<UserUpdate>({});
 
+    const [loading, setLoading] = useState(false);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
@@ -83,17 +82,23 @@ export default function UserData({
         if (Object.keys(data).length == 0) {
             setEditable(!editable);
         } else {
-            const response = await updateUser(id, data);
-            if (response.status == 200) {
-                const toastData = {
-                    title: "User updated!",
-                    message: "User has been updated successfully",
-                };
-                setData({});
-                triggerToast(toastData);
-                setEditable(!editable);
-                router.refresh();
+            setLoading(true);
+            try {
+                const response = await updateUser(id, data);
+                if (response.status == 200) {
+                    const toastData = {
+                        title: "User updated!",
+                        message: "User has been updated successfully",
+                    };
+                    setData({});
+                    triggerToast(toastData);
+                    setEditable(!editable);
+                    router.refresh();
+                }
+            } catch (error: any) {
+                console.log(error);
             }
+            setLoading(false);
         }
     };
 
@@ -139,11 +144,22 @@ export default function UserData({
                 <div className="">
                     {editable ? (
                         <button
-                            className="btn btn-secondary m-3 "
+                            className="btn btn-secondary m-3 wf-200"
                             onClick={handleSubmit}
                         >
-                            <Save />
-                            <span className="ms-2">Save changes</span>
+                            {loading ? (
+                                <div>
+                                    <div className="spinner-border spinner-border-sm text-light me-2"></div>
+                                    <span className="sr-only text-light">
+                                        Saving...
+                                    </span>
+                                </div>
+                            ) : (
+                                <div>
+                                    <Save />
+                                    <span className="ms-2">Save changes</span>
+                                </div>
+                            )}
                         </button>
                     ) : (
                         <button
