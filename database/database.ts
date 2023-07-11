@@ -11,12 +11,11 @@ export const connectToDB = async () => {
     }
 
     try {
-        if (process.env.MONGO_DB_URI == undefined) {
-            console.log("MONGO_DB_URI UNDEFINED");
+        if (!process.env.MONGO_DB_URI) {
             return;
         }
         await mongoose.connect(process.env.MONGO_DB_URI, {
-            dbName: "UnderstandingMongo",
+            dbName: "academia_pi_dev",
             useNewUrlParser: true,
             useUnifiedTopology: true,
         } as ConnectOptions);

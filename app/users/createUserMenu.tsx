@@ -92,68 +92,81 @@ export default function CreateUserForm() {
                 <div className="mt-2 mb-2">
                     <div className="">
                         <form className="d-flex flex-column justify-content-between h-100">
-                            <TextInput
-                                type="text"
-                                content="Email"
-                                name="email"
-                                required={true}
-                                value={newUser.email ?? ""}
-                                onChange={(value) =>
-                                    setNewUser({ ...newUser, email: value })
-                                }
-                            />
-                            <TextInput
-                                type="text"
-                                content="First Name"
-                                name="firstName"
-                                required={true}
-                                value={newUser.firstName ?? ""}
-                                onChange={(value) =>
-                                    setNewUser({ ...newUser, firstName: value })
-                                }
-                            />
-                            <TextInput
-                                type="text"
-                                content="Last Name"
-                                name="lastName"
-                                value={newUser.lastName ?? ""}
-                                onChange={(value) =>
-                                    setNewUser({ ...newUser, lastName: value })
-                                }
-                            />
-                            <TextInput
-                                type="text"
-                                content="Phone"
-                                name="phoneNumber"
-                                value={newUser.phoneNumber ?? ""}
-                                onChange={(value) =>
-                                    setNewUser({
-                                        ...newUser,
-                                        phoneNumber: value,
-                                    })
-                                }
-                            />
-                            <TextInput
-                                type="text"
-                                content="DNI"
-                                name="id_document"
-                                value={newUser.id_document ?? ""}
-                                onChange={(value) =>
-                                    setNewUser({
-                                        ...newUser,
-                                        id_document: value,
-                                    })
-                                }
-                            />
-                            <TextInput
-                                type="text"
-                                content="Address"
-                                name="address"
-                                value={newUser.address ?? ""}
-                                onChange={(value) =>
-                                    setNewUser({ ...newUser, address: value })
-                                }
-                            />
+                            <div className="d-flex">
+                                <TextInput
+                                    type="text"
+                                    content="Email"
+                                    name="email"
+                                    required={true}
+                                    value={newUser.email ?? ""}
+                                    onChange={(value) =>
+                                        setNewUser({ ...newUser, email: value })
+                                    }
+                                />
+                                <TextInput
+                                    type="text"
+                                    content="First Name"
+                                    name="firstName"
+                                    required={true}
+                                    value={newUser.firstName ?? ""}
+                                    onChange={(value) =>
+                                        setNewUser({
+                                            ...newUser,
+                                            firstName: value,
+                                        })
+                                    }
+                                />
+                                <TextInput
+                                    type="text"
+                                    content="Last Name"
+                                    name="lastName"
+                                    value={newUser.lastName ?? ""}
+                                    onChange={(value) =>
+                                        setNewUser({
+                                            ...newUser,
+                                            lastName: value,
+                                        })
+                                    }
+                                />
+                            </div>
+                            <div className="d-flex">
+                                <TextInput
+                                    type="text"
+                                    content="Phone"
+                                    name="phoneNumber"
+                                    value={newUser.phoneNumber ?? ""}
+                                    onChange={(value) =>
+                                        setNewUser({
+                                            ...newUser,
+                                            phoneNumber: value,
+                                        })
+                                    }
+                                />
+                                <TextInput
+                                    type="text"
+                                    content="DNI"
+                                    name="id_document"
+                                    value={newUser.id_document ?? ""}
+                                    onChange={(value) =>
+                                        setNewUser({
+                                            ...newUser,
+                                            id_document: value,
+                                        })
+                                    }
+                                />
+                                <TextInput
+                                    type="text"
+                                    content="Address"
+                                    name="address"
+                                    value={newUser.address ?? ""}
+                                    onChange={(value) =>
+                                        setNewUser({
+                                            ...newUser,
+                                            address: value,
+                                        })
+                                    }
+                                />
+                            </div>
                         </form>
                     </div>
                 </div>

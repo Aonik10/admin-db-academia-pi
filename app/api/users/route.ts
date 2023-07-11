@@ -25,12 +25,17 @@ export async function GET(req: NextRequest) {
         connectToDB();
         const stringFilter = req.nextUrl.searchParams.get("stringFilter");
 
-        let users = (await User.find()) as UserCreated[];
+        const re = new RegExp(`${stringFilter}`, "i");
 
-        // cambiar esto
-        if (stringFilter) {
-            users = users.filter((u) => isRendered(u, stringFilter));
-        }
+        let users = (await User.find({
+            $or: [
+                { email: { $regex: re } },
+                { firstName: { $regex: re } },
+                { lastName: { $regex: re } },
+                { phoneNumber: { $regex: re } },
+                //{ id_document: { $regex: re } }
+            ],
+        })) as UserCreated[];
 
         return NextResponse.json({ users }, { status: 200 });
     } catch (error: any) {

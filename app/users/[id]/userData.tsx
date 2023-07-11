@@ -34,11 +34,11 @@ function UserDataRow({
 }: UserDataRowProps) {
     return (
         <div className="m-2">
-            <div className="d-flex p-3">
+            <div className="d-flex align-items-center p-3">
                 <h5 className="w-25 mb-0">{title}</h5>
                 <input
                     type="text"
-                    className={`w-75 m-0 p-0 h-100 fs-4 border-0 bg-light ${
+                    className={`w-75 m-0 p-0 h-100 fs-4 border-0 bg-transparent ${
                         editing ? "text-dark" : "text-secondary"
                     }`}
                     disabled={!editing}

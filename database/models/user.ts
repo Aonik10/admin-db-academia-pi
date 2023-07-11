@@ -30,7 +30,7 @@ const userSchema = new Schema({
     },
     id_document: {
         type: Number,
-        match: [/^[0-9]{8,9}$/],
+        default: null,
     },
     address: {
         type: String,

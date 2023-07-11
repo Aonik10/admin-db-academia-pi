@@ -7,8 +7,8 @@ import CoursesGrid from "./coursesGrid";
 
 const getCourses = async (): Promise<CourseCreated[]> => {
     connectToDB();
-    const course = await Course.find();
-    return course;
+    const courses = await Course.find();
+    return courses;
 };
 
 export default async function Courses() {
